@@ -8,7 +8,7 @@ FROM `football-across-the-ages.football.results`
 44,353
 
 
-
+```sql
 --Number of unique teams 
 WITH home AS
 (
@@ -39,10 +39,11 @@ FROM homeaway
 SELECT  
   COUNT(DISTINCT tournament)
 FROM `football-across-the-ages.football.results`
+```
 
 141
 
-
+```sql
 --Countries with the most number of touraments
 SELECT 
   country,
@@ -51,6 +52,7 @@ FROM `football-across-the-ages.football.results`
 GROUP BY country
 ORDER BY distinct_tournaments DESC
 LIMIT 10
+```
 
 | country       | distinct_tournaments |
 |---------------|----------------------|
@@ -65,5 +67,3 @@ LIMIT 10
 | India         | 10                   |
 | Chile         | 10                   |
 
-
-```
