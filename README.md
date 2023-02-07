@@ -26,3 +26,11 @@ The data is split across three tables. Notice how team names are listed. In the 
 
 ## Some broad analysis
 
+The data was uploaded to Google's Big Query platform where queries were run. All queries fir this section can be found [here](https://github.com/chickchetwynd/football_across_the_ages/blob/main/sqlcode.md)
+
+
+| Total numbers of games played | 44,353 |
+|-------------------------------|--------|
+| Number of teams               | 316    |
+| Number of tournaments         | 141    |
+
