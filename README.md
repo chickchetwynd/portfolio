@@ -21,4 +21,4 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 #### Table Schema
 
-
+![Blank diagram](https://user-images.githubusercontent.com/121225842/217376544-cf2a2d6e-7760-4563-a999-edae5d391a86.jpeg)
