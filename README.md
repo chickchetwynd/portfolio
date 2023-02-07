@@ -17,4 +17,8 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 
 <br/><br/>
-## Basic info from the data...
+## The data...
+
+#### Table Schema
+
+
