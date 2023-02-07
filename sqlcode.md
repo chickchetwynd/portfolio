@@ -8,7 +8,7 @@ FROM `football-across-the-ages.football.results`
 
 
 
---Number of countries
+--Number of unique teams 
 WITH home AS
 (
     SELECT DISTINCT(home_team) AS home_teams
