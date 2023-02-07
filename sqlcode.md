@@ -3,6 +3,7 @@
 SELECT 
   COUNT(date)
 FROM `football-across-the-ages.football.results`
+```
 
 44,353
 
