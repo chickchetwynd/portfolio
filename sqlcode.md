@@ -31,10 +31,10 @@ homeaway AS
 
 SELECT COUNT(*)
 FROM homeaway
-
+```
 316
 
-
+```
 --Number of unique tournaments
 SELECT  
   COUNT(DISTINCT tournament)
