@@ -19,6 +19,10 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 <br/><br/>
 ## The data...
 
-#### Table Schema
 
-![Blank diagram](https://user-images.githubusercontent.com/121225842/217376544-cf2a2d6e-7760-4563-a999-edae5d391a86.jpeg)
+<img width="734" alt="Screen Shot 2023-02-07 at 2 18 37 PM" src="https://user-images.githubusercontent.com/121225842/217379634-39179c7d-761a-4a48-b445-2c557a145b1d.png">
+
+The data is split across three tables. Notice how team names are listed. In the *results* table, an example of a team is *Italy*. *Italy* can appear in both the *home_team*, *away_team*, or *country* columns. This can make the data a little tricky to work with as the same variable is listed in multiple columns, but as we shall see later this can be worked around in SQL.
+
+## Some broad analysis
+
