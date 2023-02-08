@@ -92,6 +92,23 @@ FROM `football-across-the-ages.football.results`
 ```
 23.02%
  
+```sql
+--Better code for percentage of games that ended in a penalty shootout
+WITH counted_games AS
+(SELECT
+    COUNTIF(home_score = away_score) AS count_draw,
+   COUNT(date) AS count_all
+  FROM
+    `football-across-the-ages.football.results`
+)
+
+SELECT 
+  ROUND(count_draw / count_all
+  * 100, 2) AS perc_games_shootout
+
+FROM
+  counted_games
+```
  
  
 ```sql
