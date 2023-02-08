@@ -34,7 +34,7 @@ FROM homeaway
 ```
 316
 
-```
+```sql
 --Number of unique tournaments
 SELECT  
   COUNT(DISTINCT tournament)
@@ -43,6 +43,57 @@ FROM `football-across-the-ages.football.results`
 
 141
 
+```sql
+--Average goals scored per game
+SELECT 
+  ROUND(AVG(home_score + away_score), 2) AS avg_goals_per_game
+ FROM `football-across-the-ages.football.results`
+ ```
+ 2.92
+ 
+ 
+ ```sql
+ --Average goals scored per scorer across all games
+ SELECT 
+  ROUND(AVG(goals_scored), 2) AS avg_goals_per_scorer
+FROM
+(SELECT
+  scorer,
+  COUNT(date) AS goals_scored
+FROM `football-across-the-ages.football.goalscorers`
+WHERE scorer IS NOT NULL
+GROUP BY scorer
+ORDER BY COUNT(date) DESC)
+```
+3.07
+
+
+```sql
+--Percentage of games that ended in a penalty shootout
+WITH count_of_draws AS
+(SELECT
+    COUNT(date)
+  FROM
+    `football-across-the-ages.football.results`
+  WHERE 
+    home_score = away_score),
+
+count_of_games AS
+  (SELECT
+    COUNT(date)
+  FROM `football-across-the-ages.football.results`)
+
+
+SELECT 
+  ROUND((SELECT * FROM count_of_draws)/(SELECT * FROM count_of_games)
+  * 100, 2) AS perc_games_shootout
+
+FROM `football-across-the-ages.football.results`
+```
+23.02%
+ 
+ 
+ 
 ```sql
 --Countries with the most number of touraments
 SELECT 
