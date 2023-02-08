@@ -33,4 +33,6 @@ The data was uploaded to Google's Big Query platform where queries were run. All
 |-------------------------------|--------|
 | Number of teams               | 316    |
 | Number of tournaments         | 141    |
-
+| Average goals per game        | 2.92   |
+| Average number of goals scored by players across entire career | 3.07   |
+|Percentage of games that ended in a penalty shootout| 23.02% |
