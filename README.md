@@ -36,3 +36,9 @@ The data was uploaded to Google's Big Query platform where queries were run. All
 | Average goals per game        | 2.92   |
 | Average number of goals scored by players across entire career | 3.07   |
 |Percentage of games that ended in a penalty shootout| 23.02% |
+
+
+<br />
+<img width="888" alt="Screen Shot 2023-02-07 at 5 10 53 PM" src="https://user-images.githubusercontent.com/121225842/217403029-13367f06-7c83-4410-9568-b146d5efddcc.png">
+
+
