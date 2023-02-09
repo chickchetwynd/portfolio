@@ -11,7 +11,6 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 * Conduct some basic exploratory analaysis of the data and vizualise the reults.
 * What parts of the world are most succesful at football?
-* Who are the top goal scorers of all time?
 * When a team hosts a tournament, are they more succesful than when they compete in foreign-hosted tournaments?
 
 
@@ -21,8 +20,11 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 
 <img width="734" alt="Screen Shot 2023-02-07 at 2 18 37 PM" src="https://user-images.githubusercontent.com/121225842/217379634-39179c7d-761a-4a48-b445-2c557a145b1d.png">
+<br/>
 
 ## Some interesting fact bites from the data
+
+<br/>
 
 The data was uploaded to Google's Big Query platform where queries were run. All queries for this section can be found in the drop down below the table.
 
@@ -208,21 +210,102 @@ ORDER BY min_of_game DESC
 | Chile         | 10                   |
 
 
+<br/><br/>
 
-
-DISTRIBUTION OF WHEN GOALS GET SCORED IN MATCHES.
+> __Distribution of goals scored across 90 minutes of football__
 
 
 <img width="785" alt="Screen Shot 2023-02-08 at 2 39 54 PM" src="https://user-images.githubusercontent.com/121225842/217667576-70fd6f68-854a-4794-9919-620fd186569c.png">
 
+Goals scored are distributed fairly evenly across the 90 minutes of football with a slight upwards trend towards the latter half. This would be good information to know if you were coordinating the teams defense!
 
 
+# What parts of the world are most succesful...
+  
+  
 
+
+<br /><br />
+Scoring goals is an important part of being a succesful team! Here are the all time top scorers:
+  <br />
+  
+<details>
+<summary>code</summary>
+ 
+```sql
+--top goal scorers
+  SELECT
+  scorer AS goal_scorer,
+  COUNT(date) AS num_goals_scored
+FROM `football-across-the-ages.football.goalscorers`
+GROUP BY goal_scorer
+ORDER BY num_goals_scored DESC
+LIMIT 10
+```
+  
+</details>
+  
+<img width="888" alt="Screen Shot 2023-02-07 at 5 10 53 PM" src="https://user-images.githubusercontent.com/121225842/217403029-13367f06-7c83-4410-9568-b146d5efddcc.png">
+<br />
+But a better measure of success for a team is __WINNING__ :medal_sports: :partying_face: :confetti_ball: Let's get a list of how many times each team has won.
+<br />
+<details>
+<summary>code</summary>
+  
+```sql
+--CTE identifying whether the home or away team won.
+WITH winning_team AS
+(
+  SELECT
+    home_team,
+    away_team,
+    CASE
+      WHEN home_score > away_score
+      THEN 'home win'
+      WHEN away_score > home_score
+      THEN 'away win'
+      ELSE 'draw' END AS match_winner
+  FROM `football-across-the-ages.football.results`
+),
+
+--Counting the number of wins at home for each team.
+home_wins AS
+(
+  SELECT
+    home_team AS team,
+    COUNTIF(match_winner = 'home win') AS num_of_home_games
+  FROM winning_team
+  GROUP BY home_team
+),
+
+--Counting the number of wins not at home for each team.
+away_wins AS
+(
+  SELECT
+    away_team AS team,
+    COUNTIF(match_winner = 'away win') AS num_of_away_games
+  FROM winning_team
+  GROUP BY away_team
+)
+
+--Joining the two CTEs together and totalling home and away wins for overall wins.
+SELECT
+  h.team,
+  h.num_of_home_games + a.num_of_away_games AS total_games_won
+FROM home_wins AS h
+INNER JOIN away_wins AS a
+ON h.team = a.team
+ORDER BY total_games_won DESC
+LIMIT 10
+```
+</details>
+  
 
 <br />
-<img width="888" alt="Screen Shot 2023-02-07 at 5 10 53 PM" src="https://user-images.githubusercontent.com/121225842/217403029-13367f06-7c83-4410-9568-b146d5efddcc.png">
+  
+  
 
-
-
-
-
+<img width="650" alt="Screen Shot 2023-02-08 at 4 22 02 PM" src="https://user-images.githubusercontent.com/121225842/217682185-b7ca1fbd-9542-47a0-a66a-09173ebc2e2a.png">
+<br />
+  
+Here's the top winning teams. You can see they are centered around Europe and South America. It should be said that this is a metric of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
