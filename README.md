@@ -436,8 +436,9 @@ Here we have the metric, __*home_V_away_goals*__. This is a number that represen
 | Brazil      | 0.67              | 82                     |
 | Netherlands | 0.62              | 101                    |
 
-Notice the rank of these teams. We know that this list are the most succesful teams but their rankings of the metric aren't that high if we simply rank them numerically. I included this to highlight that a more consistently performing team will have a result closer to 0 rather than a higher value, making the overall rank not very useful. Let's now use this metric to assess whether  
+Notice the rank of these teams. We know that this is a list of the most succesful teams but their rankings on the metric aren't that high. I included the rank to demonstrate that the metric doesn't indicate success, but rather it indicates the consistency of performance across home and away games. Interestingly, __*THE MOST SUCCESFUL TEAMS*__ all __*perform better at home*__ rather than away, as their values for home_V_away_goals are all positive. 
 
-
-
-Create a metric of perfomance. difference between home and away average on -goals scored AND -games won 
+So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
+  
+  
+percentage of wins at home tournaments vs away.
