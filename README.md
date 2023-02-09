@@ -308,4 +308,136 @@ LIMIT 10
 <img width="650" alt="Screen Shot 2023-02-08 at 4 22 02 PM" src="https://user-images.githubusercontent.com/121225842/217682185-b7ca1fbd-9542-47a0-a66a-09173ebc2e2a.png">
 <br />
   
-Here's the top winning teams. You can see they are centered around Europe and South America. It should be said that this is a metric of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
+Here's the teams with the top 10 number of wins With Brazil topping the list at 654 wins with England in second place and Germany in third. You can see they are centered around Europe and South America. It should be said that this is a metric of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
+
+<details>
+<summary>code</summary>
+
+```sql
+--CTE identifying whether the home or away team won.
+WITH winning_team AS
+(
+  SELECT
+    home_team,
+    away_team,
+    CASE
+      WHEN home_score > away_score
+      THEN 'home win'
+      WHEN away_score > home_score
+      THEN 'away win'
+      ELSE 'draw' END AS match_winner
+  FROM `football-across-the-ages.football.results`
+  WHERE tournament = 'FIFA World Cup'
+),
+
+--Counting the number of wins at home for each team.
+home_wins AS
+(
+  SELECT
+    home_team AS team,
+    COUNTIF(match_winner = 'home win') AS num_of_home_games
+  FROM winning_team
+  GROUP BY home_team
+),
+
+--Counting the number of wins not at home for each team.
+away_wins AS
+(
+  SELECT
+    away_team AS team,
+    COUNTIF(match_winner = 'away win') AS num_of_away_games
+  FROM winning_team
+  GROUP BY away_team
+)
+
+--Joining the two CTEs together and totalling home and away wins for overall wins.
+SELECT
+  h.team,
+  h.num_of_home_games + a.num_of_away_games AS total_wc_games_won
+FROM home_wins AS h
+INNER JOIN away_wins AS a
+ON h.team = a.team
+ORDER BY total_wc_games_won DESC
+LIMIT 10
+```
+
+</details>
+
+|     Team    | World Cup Games Won | Total Games Won |
+|:-----------:|:-------------------:|:---------------:|
+|    Brazil   |          76         |       654       |
+|   Germany   |          68         |       574       |
+|  Argentina  |          47         |       551       |
+|    Italy    |          45         |       445       |
+|    France   |          39         |       442       |
+|   England   |          32         |       597       |
+|    Spain    |          31         |       426       |
+| Netherlands |          30         |       423       |
+|   Uruguay   |          25         |       400       |
+|   Belgium   |          21         |       355       |
+<br />
+It looks like generally teams who have won the most games tend to well in the FIFA World Cup tournament. There are however some exceptions: England for example are 2nd in the list of total wins but are only 6th in World Cup wins. Maybe this is an indication that England don't perform as well in high pressure tournaments, like the World up. Performance in a World Cup could be influenced by a number of things, but one key variable is the location the tournament is heald- especially if the tournament takes places in the teams home country. Let's look at this next!
+
+<br />
+<br />
+
+# Home Advantage...
+
+To asses a teams performance at home vs. away, it's useful to create a metric. For this first metric, let compare goal scoring in home vs away matches:
+
+
+
+<details>
+<summary>code</summary>
+
+```sql
+WITH home_goals AS
+(
+  SELECT
+    home_team,
+    ROUND(AVG(home_score), 2) AS avg_home_goals
+  FROM `football-across-the-ages.football.results`
+  GROUP BY home_team
+),
+
+away_goals AS
+(
+  SELECT
+    away_team,
+    ROUND(AVG(away_score), 2) AS avg_away_goals
+  FROM `football-across-the-ages.football.results`
+  GROUP BY away_team
+)
+
+SELECT
+  h.home_team AS team,
+  ROUND(h.avg_home_goals - a.avg_away_goals, 2) AS home_V_away_goals,
+  RANK() OVER (ORDER BY (ROUND(h.avg_home_goals - a.avg_away_goals, 2))DESC) AS rank
+FROM
+  home_goals AS h
+  INNER JOIN away_goals AS a
+  ON h.home_team = a.away_team
+ORDER BY rank
+  ```
+</details>
+
+Here we have the metric, __*home_V_away_goals*__. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like:
+
+| Country     | home_V_away_goals | Overall Rank of Metric |
+|-------------|-------------------|------------------------|
+| Spain       | 0.72              | 70                     |
+| Germany     | 0.49              | 160                    |
+| Argentina   | 0.74              | 64                     |
+| Belgium     | 0.56              | 123                    |
+| Italy       | 0.66              | 91                     |
+| France      | 0.55              | 129                    |
+| England     | 0.22              | 243                    |
+| Uruguay     | 0.35              | 216                    |
+| Brazil      | 0.67              | 82                     |
+| Netherlands | 0.62              | 101                    |
+
+Notice the rank of these teams. We know that this list are the most succesful teams but their rankings of the metric aren't that high if we simply rank them numerically. I included this to highlight that a more consistently performing team will have a result closer to 0 rather than a higher value, making the overall rank not very useful. Let's now use this metric to assess whether  
+
+
+
+Create a metric of perfomance. difference between home and away average on -goals scored AND -games won 
