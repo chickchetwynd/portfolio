@@ -135,3 +135,20 @@ LIMIT 10
 | India         | 10                   |
 | Chile         | 10                   |
 
+```sql
+--Distribution of which minute goals are scored in.
+SELECT 
+  CAST(minute AS numeric) AS min_of_game,
+  COUNT(CAST(minute AS numeric)) AS num_of_goals
+
+FROM `football-across-the-ages.football.goalscorers`
+
+/* The minute column is a string Type in the table. CASTing the column as numeric fixes this except for one value whose result is the letters 'NA'. I am assuming that when this value is present it is an error and possibly stands for 'N/A'. The below line of code filters this value out. Once grouped, there is also a suspicious value for the 90th minute as it is much higher than surrounding values. I assumed that values have been rounded somehow as the 90th minute is the last minute of regular full time in football. I also filtered this value out. */
+
+WHERE
+  minute <> 'NA'
+  AND minute <> '90'
+GROUP BY minute
+ORDER BY min_of_game DESC
+```
+
