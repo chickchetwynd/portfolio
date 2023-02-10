@@ -364,18 +364,18 @@ LIMIT 10
 
 </details>
 
-|     Team    | World Cup Games Won | Total Games Won |
-|:-----------:|:-------------------:|:---------------:|
-|    Brazil   |          76         |       654       |
-|   Germany   |          68         |       574       |
-|  Argentina  |          47         |       551       |
-|    Italy    |          45         |       445       |
-|    France   |          39         |       442       |
-|   England   |          32         |       597       |
-|    Spain    |          31         |       426       |
-| Netherlands |          30         |       423       |
-|   Uruguay   |          25         |       400       |
-|   Belgium   |          21         |       355       |
+| Team        | World Cup Games Won | World Cup Rank | Total Games Won | Total Games Rank |
+|-------------|---------------------|----------------|-----------------|------------------|
+| Brazil      | 76                  | 1              | 654             | 1                |
+| Germany     | 68                  | 2              | 574             | 3                |
+| Argentina   | 47                  | 3              | 551             | 4                |
+| Italy       | 45                  | 4 | 445             | 9                |
+| France      | 39                  | 5 | 442             | 10               |
+| England     | 32                  | 6 | 597             | 2                |
+| Spain       | 31                  | 7 | 426             | 11               |
+| Netherlands | 30                  | 8 | 423             | 12               |
+| Uruguay     | 25                  | 9 | 400             | 13               |
+| Belgium     | 21                  | 10 | 355             | 18               |
 <br />
 It looks like generally teams who have won the most games tend to well in the FIFA World Cup tournament. There are however some exceptions: England for example are 2nd in the list of total wins but are only 6th in World Cup wins. Maybe this is an indication that England don't perform as well in high pressure tournaments, like the World up. Performance in a World Cup could be influenced by a number of things, but one key variable is the location the tournament is heald- especially if the tournament takes places in the teams home country. Let's look at this next!
 
