@@ -308,7 +308,7 @@ LIMIT 10
 <img width="650" alt="Screen Shot 2023-02-08 at 4 22 02 PM" src="https://user-images.githubusercontent.com/121225842/217682185-b7ca1fbd-9542-47a0-a66a-09173ebc2e2a.png">
 <br />
   
-Here's the teams with the top 10 number of wins With Brazil topping the list at 654 wins with England in second place and Germany in third. You can see they are centered around Europe and South America. It should be said that this is a metric of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
+Here's the teams with the top 10 number of wins With Brazil topping the list at 654 wins with England in second place and Germany in third. You can see that these teams are centered around Europe and South America. It should be said that this is a list of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
 
 <details>
 <summary>code</summary>
@@ -354,6 +354,7 @@ away_wins AS
 SELECT
   h.team,
   h.num_of_home_games + a.num_of_away_games AS total_wc_games_won
+  RANK() OVER (ORDER BY (h.num_of_home_games + a.num_of_away_games)DESC) AS world_cup_rank
 FROM home_wins AS h
 INNER JOIN away_wins AS a
 ON h.team = a.team
