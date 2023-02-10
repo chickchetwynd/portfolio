@@ -520,4 +520,8 @@ ON h.team = a.team
   </details>
   
 <img width="913" alt="Screen Shot 2023-02-10 at 3 37 48 PM" src="https://user-images.githubusercontent.com/121225842/218222206-adfff076-805e-4faa-b1c9-91a0f137758c.png">
+  
+  <br />
+
+Looking at the same ten teams again, we can see that they __ALL__ have higher percentage of wins at home vs away!
 
