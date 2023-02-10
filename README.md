@@ -26,21 +26,9 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 <br/>
 
-The data was uploaded to Google's Big Query platform where queries were run. All queries for this section can be found in the drop down below the table.
+The data was uploaded to Google's Big Query platform where queries were run. All queries for this section can be found in the drop down below:
 
-
-| Total numbers of games played | 44,353 |
-|-------------------------------|--------|
-| Number of teams               | 316    |
-| Number of tournaments         | 141    |
-| Average goals per game        | 2.92   |
-| Average number of goals scored by players across entire career | 3.07   |
-|Percentage of games that ended in a penalty shootout| 23.02% |
-
-
-
-
-
+<br/>
 
 <details>
   <summary>See my code</summary>
@@ -191,6 +179,14 @@ ORDER BY min_of_game DESC
 
 
 
+
+| Total numbers of games played | 44,353 |
+|-------------------------------|--------|
+| Number of teams               | 316    |
+| Number of tournaments         | 141    |
+| Average goals per game        | 2.92   |
+| Average number of goals scored by players across entire career | 3.07   |
+|Percentage of games that ended in a penalty shootout| 23.02% |
 
 
 (Note that although there are only 195 countries in the world currently, in this dataset there are 316 unique teams. This is because in many instances across the history of when the data is collected from, countries have been split down into regions (eg. Asturias- autonomous region in Spain, or Brittany- region in France).
@@ -377,14 +373,14 @@ LIMIT 10
 | Uruguay     | 25                  | 9 | 400             | 13               |
 | Belgium     | 21                  | 10 | 355             | 18               |
 <br />
-It looks like generally teams who have won the most games tend to well in the FIFA World Cup tournament. There are however some exceptions: England for example are 2nd in the list of total wins but are only 6th in World Cup wins. Maybe this is an indication that England don't perform as well in high pressure tournaments, like the World up. Performance in a World Cup could be influenced by a number of things, but one key variable is the location the tournament is heald- especially if the tournament takes places in the teams home country. Let's look at this next!
+Teams who have done well in the ranking of **total games won** tend to do well in the ranking of **total world cup wins** also. It ins't good news for all teams however: England are 2nd in the list of total wins but are only 6th in World Cup wins. Maybe this is an indication that England don't perform as well in high pressure tournaments, like the World up. Performance in a World Cup could be influenced by a number of things, but one key variable is the location the tournament is heald- especially if the tournament takes places in the teams home country. Let's look at this next!
 
 <br />
 <br />
 
 # Home Advantage...
 
-To asses a teams performance at home vs. away, it's useful to create a metric. For this first metric, let compare goal scoring in home vs away matches:
+To asses a teams performance at home vs. away, it's useful to create a metric. Let's create a metric for each team that measures whether they score more goals at home or away:
 
 
 
@@ -422,7 +418,7 @@ ORDER BY rank
   ```
 </details>
 
-Here we have the metric, __*home_V_away_goals*__. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like:
+Here we have the metric, __*home_V_away_goals*__. We get this value by calculating the difference between a teams average number of goals scored per home match vs average number of goals scored per away match. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like:
 
 | Country     | home_V_away_goals | Overall Rank of Metric |
 |-------------|-------------------|------------------------|
@@ -436,6 +432,11 @@ Here we have the metric, __*home_V_away_goals*__. This is a number that represen
 | Uruguay     | 0.35              | 216                    |
 | Brazil      | 0.67              | 82                     |
 | Netherlands | 0.62              | 101                    |
+  
+Thie first thing to notice is that these top performing teams __ALL__ perform better at home vs. away as they all have a positive integer for home_V_away_goals. In fact 
+  
+  
+  HHHHEEEEERRRRREEEEEEE
 
 Notice the rank of these teams. We know that this is a list of the most succesful teams but their rankings on the metric aren't that high. I included the rank to demonstrate that the metric doesn't indicate success, but rather it indicates the consistency of performance across home and away games. Interestingly, __*THE MOST SUCCESFUL TEAMS*__ all __*perform better at home*__ rather than away, as their values for home_V_away_goals are all positive. 
 
