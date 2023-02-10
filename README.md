@@ -300,11 +300,11 @@ LIMIT 10
 <br />
   
   
-
+>Teams with highest total wins
 <img width="650" alt="Screen Shot 2023-02-08 at 4 22 02 PM" src="https://user-images.githubusercontent.com/121225842/217682185-b7ca1fbd-9542-47a0-a66a-09173ebc2e2a.png">
 <br />
   
-Here's the teams with the top 10 number of wins With Brazil topping the list at 654 wins with England in second place and Germany in third. You can see that these teams are centered around Europe and South America. It should be said that this is a list of wins across ALL tournaments. But not all tournaments are equal; some are higher profile than others. The World Cup for example is the most prestigious of all tournaments. Let compare total wins across all tournaments and total wins in a World Cup.
+These top teams are centered around Europe and South America. It should be said that this is a list of wins across ALL tournaments; but not all tournaments are equal. Lets look at total wins in a World Cup.
 
 <details>
 <summary>code</summary>
@@ -373,14 +373,15 @@ LIMIT 10
 | Uruguay     | 25                  | 9 | 400             | 13               |
 | Belgium     | 21                  | 10 | 355             | 18               |
 <br />
-Teams who have done well in the ranking of **total games won** tend to do well in the ranking of **total world cup wins** also. It ins't good news for all teams however: England are 2nd in the list of total wins but are only 6th in World Cup wins. Maybe this is an indication that England don't perform as well in high pressure tournaments, like the World up. Performance in a World Cup could be influenced by a number of things, but one key variable is the location the tournament is heald- especially if the tournament takes places in the teams home country. Let's look at this next!
+Teams who have done well in the ranking of _total games won_ tend to do well in the ranking of **total world cup wins** also. Some teams have underperformed in World Cup games though; Engalnd was 2nd in __total games__ but only 6th in _world cup games__. Maybe there is something else affecting their performance.
+  
 
 <br />
 <br />
 
 # Home Advantage...
 
-To asses a teams performance at home vs. away, it's useful to create a metric. Let's create a metric for each team that measures whether they score more goals at home or away:
+Lets asses a teams performance at home vs. away. To do this lets create a metric called home_V_away_goals which is the difference in averge goals scored at home and average goals scored away.
 
 
 
@@ -418,7 +419,7 @@ ORDER BY rank
   ```
 </details>
 
-Here we have the metric, __*home_V_away_goals*__. We get this value by calculating the difference between a teams average number of goals scored per home match vs average number of goals scored per away match. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like. In the table below, it is important to remember that a higher home_V_aways_goals value doesn't correspond to a better performance. The Overall Rank of Metric column ranks home_V_away_goals of ALL teams with the highest value ranked first. We have already established that Brazil is the most succesful team but they only rank 82nd for home_V_away_goals. Actually, in theory a more succesful team would have a value closer to 0 as this would represent a team with more consistent performance.
+
 
 | Country     | home_V_away_goals | Overall Rank of Metric |
 |-------------|-------------------|------------------------|
@@ -433,7 +434,7 @@ Here we have the metric, __*home_V_away_goals*__. We get this value by calculati
 | Brazil      | 0.67              | 82                     |
 | Netherlands | 0.62              | 101                    |
   
-Thie next thing to notice about this table is that these top performing teams __ALL__ perform better at home vs. away as they all have a positive integer for home_V_away_goals. In fact, there are 18 teams who have a negative home_V_away_goals value meaning the vats majority of teams score more goals when they are playing at home vs away.
+If home_V_away_goals is a **positive value**, it represents a team that scores **more goals at home** than away. If it's **negative**, then the team scores **more at away games** than home. The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**
 <br />
 
 So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
