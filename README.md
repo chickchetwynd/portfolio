@@ -418,7 +418,7 @@ ORDER BY rank
   ```
 </details>
 
-Here we have the metric, __*home_V_away_goals*__. We get this value by calculating the difference between a teams average number of goals scored per home match vs average number of goals scored per away match. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like:
+Here we have the metric, __*home_V_away_goals*__. We get this value by calculating the difference between a teams average number of goals scored per home match vs average number of goals scored per away match. This is a number that represents goal scoring performance in home vs. away games. If the metric is a positive value, it means the team performs better in goal scoring at home games than it does away. If it is a negative value, then the reciprocal is true. Let's take our top ten performing teams from earlier and see what this metric looks like. In the table below, it is important to remember that a higher home_V_aways_goals value doesn't correspond to a better performance. The Overall Rank of Metric column ranks home_V_away_goals of ALL teams with the highest value ranked first. We have already established that Brazil is the most succesful team but they only rank 82nd for home_V_away_goals. Actually, in theory a more succesful team would have a value closer to 0 as this would represent a team with more consistent performance.
 
 | Country     | home_V_away_goals | Overall Rank of Metric |
 |-------------|-------------------|------------------------|
@@ -433,14 +433,14 @@ Here we have the metric, __*home_V_away_goals*__. We get this value by calculati
 | Brazil      | 0.67              | 82                     |
 | Netherlands | 0.62              | 101                    |
   
-Thie first thing to notice is that these top performing teams __ALL__ perform better at home vs. away as they all have a positive integer for home_V_away_goals. In fact 
-  
-  
-  HHHHEEEEERRRRREEEEEEE
-
-Notice the rank of these teams. We know that this is a list of the most succesful teams but their rankings on the metric aren't that high. I included the rank to demonstrate that the metric doesn't indicate success, but rather it indicates the consistency of performance across home and away games. Interestingly, __*THE MOST SUCCESFUL TEAMS*__ all __*perform better at home*__ rather than away, as their values for home_V_away_goals are all positive. 
+Thie next thing to notice about this table is that these top performing teams __ALL__ perform better at home vs. away as they all have a positive integer for home_V_away_goals. In fact, there are 18 teams who have a negative home_V_away_goals value meaning the vats majority of teams score more goals when they are playing at home vs away.
+<br />
 
 So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
   
   
+  <br />
+
+# Home Tournament, Home Success?
+
 percentage of wins at home tournaments vs away.
