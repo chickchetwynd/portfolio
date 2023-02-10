@@ -31,7 +31,8 @@ The data was uploaded to Google's Big Query platform where queries were run. All
 <br/>
 
 <details>
-  <summary>See my code</summary>
+
+<summary>See my code</summary>
   
  ```sql
 --Number of games played
@@ -144,33 +145,6 @@ SELECT
 FROM
   counted_games
 ```
- 
- 
-```sql
---Countries with the most number of touraments
-SELECT 
-  country,
-  COUNT(DISTINCT tournament) AS distinct_tournaments 
-FROM `football-across-the-ages.football.results`
-GROUP BY country
-ORDER BY distinct_tournaments DESC
-LIMIT 10
-```
-```sql
---Distribution of goals scored by minute.
-SELECT 
-  CAST(minute AS numeric) AS min_of_game,
-  COUNT(CAST(minute AS numeric)) AS num_of_goals
-
-FROM `football-across-the-ages.football.goalscorers`
-
-/* The minute column is a string Type in the table. CASTing the column as numeric fixes this except for one value whose result is the letters 'NA'. I am assuming that when this value is present it is an error and possibly stands for 'N/A'. The below line of code filters this rvalueow out. Once grouped, there is also a suspicious value for the 90th minute as it is much higher than surrounding values. I assumed that values have been rounded somehow as the 90th minute is the last minute of regular full time in football. I also filtered this value out. */
-WHERE
-  minute <> 'NA'
-  AND minute <> '90'
-GROUP BY minute
-ORDER BY min_of_game DESC
-```
 
 
 </details>
@@ -188,8 +162,24 @@ ORDER BY min_of_game DESC
 | Average number of goals scored by players across entire career | 3.07   |
 |Percentage of games that ended in a penalty shootout| 23.02% |
 
-
+<br />
 (Note that although there are only 195 countries in the world currently, in this dataset there are 316 unique teams. This is because in many instances across the history of when the data is collected from, countries have been split down into regions (eg. Asturias- autonomous region in Spain, or Brittany- region in France).
+<br /><br />
+
+<details>
+  <summary>See my code</summary>
+  
+```sql
+--Countries with the most number of touraments
+SELECT 
+  country,
+  COUNT(DISTINCT tournament) AS distinct_tournaments 
+FROM `football-across-the-ages.football.results`
+GROUP BY country
+ORDER BY distinct_tournaments DESC
+LIMIT 10
+```
+</details>
 
 |   Countries that have hosted the most tournaments|   |
 | --- | --- |
@@ -208,6 +198,32 @@ ORDER BY min_of_game DESC
 
 <br/><br/>
 
+<details>
+  <summary>See my code</summary>
+
+  
+```sql
+--Distribution of goals scored by minute.
+SELECT 
+  CAST(minute AS numeric) AS min_of_game,
+  COUNT(CAST(minute AS numeric)) AS num_of_goals
+
+FROM `football-across-the-ages.football.goalscorers`
+
+/* The minute column is a string Type in the table. CASTing the column as numeric fixes this except for one value whose result is the letters 'NA'. I am assuming that when this value is present it is an error and possibly stands for 'N/A'. The below line of code filters this rvalueow out. Once grouped, there is also a suspicious value for the 90th minute as it is much higher than surrounding values. I assumed that values have been rounded somehow as the 90th minute is the last minute of regular full time in football. I also filtered this value out. */
+WHERE
+  minute <> 'NA'
+  AND minute <> '90'
+GROUP BY minute
+ORDER BY min_of_game DESC
+```
+  
+</details>
+  
+  
+  
+  
+  
 > __Distribution of goals scored across 90 minutes of football__
 
 
@@ -226,7 +242,7 @@ Scoring goals is an important part of being a succesful team! Here are the all t
   <br />
   
 <details>
-<summary>code</summary>
+<summary>See my code</summary>
  
 ```sql
 --top goal scorers
@@ -244,9 +260,12 @@ LIMIT 10
 <img width="888" alt="Screen Shot 2023-02-07 at 5 10 53 PM" src="https://user-images.githubusercontent.com/121225842/217403029-13367f06-7c83-4410-9568-b146d5efddcc.png">
 <br />
 But a better measure of success for a team is __WINNING__ :medal_sports: :partying_face: :confetti_ball: Let's get a list of how many times each team has won.
+  
 <br />
+  
+  
 <details>
-<summary>code</summary>
+<summary>See my code</summary>
   
 ```sql
 --CTE identifying whether the home or away team won.
@@ -297,8 +316,6 @@ LIMIT 10
 </details>
   
 
-<br />
-  
   
 >Teams with highest total wins
 <img width="650" alt="Screen Shot 2023-02-08 at 4 22 02 PM" src="https://user-images.githubusercontent.com/121225842/217682185-b7ca1fbd-9542-47a0-a66a-09173ebc2e2a.png">
@@ -307,7 +324,7 @@ LIMIT 10
 These top teams are centered around Europe and South America. It should be said that this is a list of wins across ALL tournaments; but not all tournaments are equal. Lets look at total wins in a World Cup.
 
 <details>
-<summary>code</summary>
+<summary>See my code</summary>
 
 ```sql
 --CTE identifying whether the home or away team won.
@@ -373,7 +390,8 @@ LIMIT 10
 | Uruguay     | 25                  | 9 | 400             | 13               |
 | Belgium     | 21                  | 10 | 355             | 18               |
 <br />
-Teams who have done well in the ranking of _total games won_ tend to do well in the ranking of **total world cup wins** also. Some teams have underperformed in World Cup games though; Engalnd was 2nd in __total games__ but only 6th in _world cup games__. Maybe there is something else affecting their performance.
+  
+Teams who have done well in the ranking of __total games won__ tend to do well in the ranking of __total world cup wins__ also. Some teams have underperformed in World Cup games though; Engalnd was 2nd in _total games_ but only 6th in _world cup games_. Maybe there is something else affecting their performance.
   
 
 <br />
@@ -381,12 +399,12 @@ Teams who have done well in the ranking of _total games won_ tend to do well in 
 
 # Home Advantage...
 
-Lets asses a teams performance at home vs. away. To do this lets create a metric called home_V_away_goals which is the difference in averge goals scored at home and average goals scored away.
+Lets asses a teams performance at home vs. away. To do this lets create a metric called __home_V_away_goals__ which is the difference in averge goals scored at home and average goals scored away.
 
 
 
 <details>
-<summary>code</summary>
+<summary>See my code</summary>
 
 ```sql
 WITH home_goals AS
@@ -421,20 +439,24 @@ ORDER BY rank
 
 
 
-| Country     | home_V_away_goals | Overall Rank of Metric |
-|-------------|-------------------|------------------------|
-| Spain       | 0.72              | 70                     |
-| Germany     | 0.49              | 160                    |
-| Argentina   | 0.74              | 64                     |
-| Belgium     | 0.56              | 123                    |
-| Italy       | 0.66              | 91                     |
-| France      | 0.55              | 129                    |
-| England     | 0.22              | 243                    |
-| Uruguay     | 0.35              | 216                    |
-| Brazil      | 0.67              | 82                     |
-| Netherlands | 0.62              | 101                    |
+| Country     | home_V_away_goals | 
+|-------------|-------------------|
+| Spain       | 0.72              | 
+| Germany     | 0.49              | 
+| Argentina   | 0.74              |
+| Belgium     | 0.56              | 
+| Italy       | 0.66              | 
+| France      | 0.55              | 
+| England     | 0.22              | 
+| Uruguay     | 0.35              | 
+| Brazil      | 0.67              | 
+| Netherlands | 0.62              | 
   
-If home_V_away_goals is a **positive value**, it represents a team that scores **more goals at home** than away. If it's **negative**, then the team scores **more at away games** than home. The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**
+<br />
+  
+If home_V_away_goals is a **positive value**, it represents a team that scores **more goals at home** than away. If it's **negative**, then the team scores **more at away games** than home.
+
+The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**. In fact, only 9.9% of teams have a negative value for home_V_away_goals. __Overwhelmingly, teams tend to score more at home games.__
 <br />
 
 So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
