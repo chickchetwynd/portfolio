@@ -11,9 +11,7 @@ In this project, my goal is to use this dataset to demonstrate some basic SQL sk
 
 * Conduct some basic exploratory analaysis of the data and vizualise the reults.
 * What parts of the world are most succesful at football?
-* When a team hosts a tournament, are they more succesful than when they compete in foreign-hosted tournaments?
-
-
+* Are teams more succesful when they play at home compared to when they play an away game?
 
 <br/><br/>
 ## The data...
@@ -456,7 +454,7 @@ ORDER BY rank
   
 If home_V_away_goals is a **positive value**, it represents a team that scores **more goals at home** than away. If it's **negative**, then the team scores **more at away games** than home.
 
-The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**. In fact, only 9.9% of teams have a negative value for home_V_away_goals. __Overwhelmingly, teams tend to score more at home games.__
+The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**. In fact, out of all teams only 9.9%  have a negative value for home_V_away_goals. __Overwhelmingly, teams tend to score more at home games.__
 <br />
 
 So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
@@ -466,4 +464,9 @@ So now we know that teams perform better at home than away, let's see if this ha
 
 # Home Tournament, Home Success?
 
+  
+
 percentage of wins at home tournaments vs away.
+  
+  CASE WHEN home_team = country AND home_score > away_score
+  THEN home win and home tournament 
