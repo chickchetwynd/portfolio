@@ -457,16 +457,67 @@ If home_V_away_goals is a **positive value**, it represents a team that scores *
 The table has the top ten perfoming teams and notice that they **ALL** have **positive values for home_V_away_goals**. In fact, out of all teams only 9.9%  have a negative value for home_V_away_goals. __Overwhelmingly, teams tend to score more at home games.__
 <br />
 
-So now we know that teams perform better at home than away, let's see if this has an affect on tournament success.
+So now we know that teams score more goals at home than away, let's see if this translates to __WINS__ :partying_face:
   
   
   <br />
 
-# Home Tournament, Home Success?
+# Home wins Vs Away wins
 
+<details>
+<summary>See my code</summary>
   
+```sql
+  --Identifying whether the home or away team won.
+WITH winning_team AS
+(
+  SELECT
+    home_team,
+    away_team,
+    CASE
+      WHEN home_score > away_score
+      THEN 'home win'
+      WHEN away_score > home_score
+      THEN 'away win'
+      ELSE 'draw' END AS match_winner
+  FROM `football-across-the-ages.football.results`
+),
 
-percentage of wins at home tournaments vs away.
+--Counting the number of wins at home and total home games for each team.
+home_wins AS
+(
+  SELECT
+    home_team AS team,
+    COUNTIF(match_winner = 'home win') AS num_wins_home_games,
+    COUNTIF(match_winner IN ('home win', 'away win', 'draw')) AS num_home_games
+  FROM winning_team
+  GROUP BY home_team
+),
+
+--Counting the number of away wins and total away games for each team.
+away_wins AS
+(
+  SELECT
+    away_team AS team,
+    COUNTIF(match_winner = 'away win') AS num_wins_away_games,
+    COUNTIF(match_winner IN ('home win', 'away win', 'draw')) AS num_away_games
+  FROM winning_team
+  GROUP BY away_team
+)
+
+
+
+--Calculating the percentage of wins at home and away.
+SELECT
+  h.team,
+  ROUND((h.num_wins_home_games / h.num_home_games) * 100, 2) AS perc_home_wins,
+  ROUND((a.num_wins_away_games / a.num_away_games) * 100, 2) AS perc_away_wins
+
+FROM home_wins AS h
+INNER JOIN away_wins AS a
+ON h.team = a.team
+```
+  </details>
   
-  CASE WHEN home_team = country AND home_score > away_score
-  THEN home win and home tournament 
+<img width="913" alt="Screen Shot 2023-02-10 at 3 37 48 PM" src="https://user-images.githubusercontent.com/121225842/218222206-adfff076-805e-4faa-b1c9-91a0f137758c.png">
+
