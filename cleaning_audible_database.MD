@@ -142,5 +142,11 @@ UPDATE audible_uncleaned
 SET narrator = REPLACE(narrator, ',', ', ')
 ```
 
+<br>
+
+Next, lets format the _time_ column so that it just displays the duration of the audiobook in minutes only.
+
+<br>
+
 
 
