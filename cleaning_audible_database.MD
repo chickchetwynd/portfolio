@@ -2,8 +2,7 @@
 
 Raw data is available [here](https://www.kaggle.com/datasets/snehangsude/audible-dataset?select=audible_uncleaned.csv)
 
-The purpose of this project is to clean a dataset ready for analysis using SQL. The data was downloaded as a CSV file and then uploaded to Google's Big Queary where I will then use SQL quearies to format the table.
-
+The purpose of this project is to clean a dataset ready for analysis using SQL. The data was downloaded as a CSV file and I used DB browser to run queries and edit the table.
 <br>
 
 The table contains data from a web scraping project fron Audible India. It contains 87,489 rows and 8 columns. Lets see a table extract:
@@ -11,7 +10,7 @@ The table contains data from a web scraping project fron Audible India. It conta
 ```sql
 SELECT  
   *
-FROM `audible-378119.audible.books`
+FROM audible_uncleaned
 
 LIMIT 3
 ```
@@ -36,7 +35,7 @@ SELECT
    FROM
     (SELECT name
      FROM
-     `audible-378119.audible.books`)) AS total_rows,
+     audible_uncleaned)) AS total_rows,
 
 
   (SELECT
@@ -44,13 +43,13 @@ SELECT
   FROM
   (SELECT DISTINCT name
   FROM
-    `audible-378119.audible.books`)) AS unique_rows,
+    audible_uncleaned)) AS unique_rows,
 
     ((SELECT COUNT(1)
     FROM
     (SELECT name
     FROM
-    `audible-378119.audible.books`))
+    audible_uncleaned))
      
      -
      
@@ -59,7 +58,7 @@ SELECT
     FROM
     (SELECT DISTINCT name
     FROM
-    `audible-378119.audible.books`))) AS num_duplicate_rows
+    audible_uncleaned))) AS num_duplicate_rows
 ```
 
 | total_rows | unique_rows | num_duplicate_rows |
@@ -69,7 +68,41 @@ SELECT
 
 <br>
 
-Removing duplicate rows
+A problem encountered here is that there are instances where there are multiple rows with the same title, but it isn't a true duplicate- it is the same audiobook but a different version with a separate narator. Let's try this instead:
+
+<br>
+
+```sql
+SELECT
+	ROW_NUMBER () OVER (PARTITION BY (name || narrator || language)  ORDER BY (name || narrator || language)) AS rn,
+	name || narrator || language AS concat_column,
+	name,
+	narrator
+FROM audible_uncleaned
+```
+This concatenates the name and the narrator of the book and then assigns a row number to rows partitioned on this new concatenation. Any duplicate rows will have a row number greater than 1. There are **486** duplicates based on name and narrator. Let's remove these rows from the table:
+
+
+```sql
+WITH CTE AS
+(
+SELECT
+	ROW_NUMBER () OVER (PARTITION BY (name || narrator || language)  ORDER BY (name || narrator || language)) AS rn,
+	name || narrator || language AS concat_column,
+	name,
+	narrator,
+	time,
+	releasedate,
+	language,
+	stars,
+	price
+FROM audible_uncleaned
+)
+
+DELETE FROM audible_uncleaned
+	WHERE (name || narrator || language) IN
+	(SELECT concat_column FROM CTE WHERE rn > 1);
+```
 
 
 
