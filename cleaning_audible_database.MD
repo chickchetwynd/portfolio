@@ -103,7 +103,44 @@ DELETE FROM audible_uncleaned
 	WHERE (name || narrator || language) IN
 	(SELECT concat_column FROM CTE WHERE rn > 1);
 ```
+<br>
 
+Now lets address the _author_ and _narrator_ columns. They contain the extra characters 'Writtenby:' and 'Narratedby:' before the actual information that we need. Lets format these columns correctly:
+
+<br>
+
+```sql
+--Removing unwanted characters from the author column.
+	
+UPDATE audible_uncleaned
+SET author = SUBSTR(author, 11)
+```
+<br>
+
+```sql
+--add a space ' ' after each comma ',' in the author column.
+
+UPDATE audible_uncleaned
+SET author = REPLACE(author, ',', ', ')
+```
+<br>
+
+Removing unwanted characters from the _narrator_ column:
+<br>
+
+```sql
+UPDATE audible_uncleaned
+SET narrator = SUBSTR(narrator, 12)
+```
+<br>
+
+
+```sql
+
+--Add a space ' ' after each comma ',' in the _narrator_ column.
+UPDATE audible_uncleaned
+SET narrator = REPLACE(narrator, ',', ', ')
+```
 
 
 
