@@ -217,6 +217,7 @@ WHERE time LIKE '%minss%';
 
 <br>
 
+Now that the _time_ column is formatted uniformly, lets create a new column where we parse the _time_ column and extract just the total number of minutes:
 
 ```sql
 
@@ -230,15 +231,30 @@ SELECT
 			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') - 1) AS INTEGER) * (60) + (CAST(SUBSTR(time, INSTR(time, 'and') + 3, INSTR(time, 'min') -1) AS INTEGER))
 			
 	  WHEN time LIKE '%hrs%'
-			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') * 60) AS INTEGER)
+			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') -1) AS INTEGER) * 60
 			
 	  WHEN time LIKE '%min%'
 			THEN CAST(SUBSTR(time, 1, (INSTR(time, 'min') -1)) AS INTEGER)
 	  END AS duration_mins
-	  
+	   
 FROM audible_uncleaned;
 ```
 <br>
+
+| time               | duration |
+|:------------------:|:--------:|
+| 2 hrs and 3 mins   | 123      |
+| 11 hrs and 16 mins | 676      |
+| 10 hrs             | 600      |
+| ...                | ...      |
+| 43 mins            | 43       |
+| 9 mins             | 9        |
+| 2 hrs and 6 mins   | 126      |
+
+
+<br>
+
+The query above creates a case statement with three types of cases: case when there are hrs and mins, only hrs, and only mins. Each case statement extracts the correct portion of the string from which we can create the _duration column_ which contains the audiobook length in minutes.
 
 
 
