@@ -168,7 +168,7 @@ SET narrator = REPLACE(narrator, ',', ', ')
 <br>
 
 
-Next, lets format the _time_ column so that it just displays the duration of the audiobook in minutes only. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want:
+Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want:
 
 <br>
 
