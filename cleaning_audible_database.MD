@@ -80,7 +80,19 @@ SELECT
 	narrator
 FROM audible_uncleaned
 ```
-This concatenates the name and the narrator of the book and then assigns a row number to rows partitioned on this new concatenation. Any duplicate rows will have a row number greater than 1. There are **486** duplicates based on name and narrator. Let's remove these rows from the table:
+<br>
+
+| rn | concat_column                                                                              | name                                             | narrator                   |
+|----|--------------------------------------------------------------------------------------------|--------------------------------------------------|----------------------------|
+| 1  | 100 quotes by Albert EinsteinNarratedby:PaulSperaEnglish                                   | 100 quotes by Albert Einstein                    | Narratedby:PaulSpera       |
+| 1  | 100 quotes by Benjamin FranklinNarratedby:PaulSperaEnglish                                 | 100 quotes by Benjamin Franklin                  | Narratedby:PaulSpera       |
+| 2  | 100 quotes by Benjamin FranklinNarratedby:PaulSperaEnglish                                 | 100 quotes by Benjamin Franklin                  | Narratedby:PaulSpera       |
+| 1  | 100 quotes by Mahatma Gandhi in Chinese MandarinNarratedby:LucieTengDuvertmandarin_chinese | 100 quotes by Mahatma Gandhi in Chinese Mandarin | Narratedby:LucieTengDuvert |
+| 1  | 100 quotes by Mahatma GandhiNarratedby:PaulSperaEnglish                                    | 100 quotes by Mahatma Gandhi                     | Narratedby:PaulSpera       |
+
+<br>
+
+This concatenates the name and the narrator of the book and then assigns a row number to rows partitioned on this new concatenation. Any duplicate rows will have a row number greater than 1. In the table above, you can see that the duplicate row has a row number (rn) of 2. All other non-duplicate rows have a rn of 1. There are **486** duplicates based on name and narrator in the main table. Lets use these new row numbers in a CTE to remove duplicate rows from the main table:
 
 
 ```sql
@@ -147,6 +159,14 @@ SET narrator = REPLACE(narrator, ',', ', ')
 ```
 
 <br>
+
+| name                                                | author                  | narrator   | time               | releasedate | language | stars                       | price  |
+|-----------------------------------------------------|-------------------------|------------|--------------------|-------------|----------|-----------------------------|--------|
+| A Course in Miracles: Text, Vol. 1                  | Dr.HelenSchucman-scribe | JimStewart | 37 hrs and 26 mins | 25-07-12    | English  | 4.5 out of 5 stars6 ratings | 938.00 |
+| A Course in Miracles: Workbook for Students, Vol. 2 | Dr.HelenSchucman-scribe | JimStewart | 19 hrs and 57 mins | 05-07-12    | English  | Not rated yet               | 938.00 |
+
+<br>
+
 
 Next, lets format the _time_ column so that it just displays the duration of the audiobook in minutes only. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want:
 
