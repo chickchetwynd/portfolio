@@ -256,5 +256,11 @@ FROM audible_uncleaned;
 
 The query above creates a case statement with three types of cases: case when there are hrs and mins, only hrs, and only mins. Each case statement extracts the correct portion of the string from which we can create the _duration column_ which contains the audiobook length in minutes.
 
+<br>
+
+Lets update the main table with this new column and remove the _time_ column:
+
+
+
 
 
