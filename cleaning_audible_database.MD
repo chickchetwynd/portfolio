@@ -107,6 +107,10 @@ DELETE FROM audible_uncleaned
 
 Now lets address the _author_ and _narrator_ columns. They contain the extra characters 'Writtenby:' and 'Narratedby:' before the actual information that we need. Lets format these columns correctly:
 
+![Screenshot 2023-02-22 at 12 24 22 PM](https://user-images.githubusercontent.com/121225842/220752985-f3727c9d-0e62-41d2-bb02-a5bfcf90d666.jpeg)
+
+
+
 <br>
 
 ```sql
