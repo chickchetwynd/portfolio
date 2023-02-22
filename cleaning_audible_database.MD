@@ -176,6 +176,47 @@ First up, lets make sure that before we parse the column that it is formatted un
 
 <br>
 
+| name                          | time               |
+|:-----------------------------:|:------------------:|
+| The Red Pyramid               | 13 hrs and 44 mins |
+| Mystery of the Griefer's Mark | 1 hr and 53 mins   |
+| Geronimo Stilton #17          | 2 hrs and 28 mins  |
+| ...                           | ...                |
+| The Skeletons Strike Back     | 2 hrs and 1 min    |
+| Dragonslayer                  | 12 hrs and 44 mins |
+| A Bear Called Paddington      | 2 hrs and 39 mins  |
+
+<br>
+
+```sql
+--Replacing 'hr' with 'hrs' in the time column.
+
+UPDATE
+	audible_uncleaned
+SET
+	time = REPLACE(time, 'hr ', 'hrs ')
+WHERE time LIKE '%hr %'
+
+
+--Replacing 'min' with 'mins' in time column
+
+UPDATE
+	audible_uncleaned
+SET
+	time = REPLACE(time, 'min', 'mins')
+WHERE time LIKE '%min%';
+	
+--The above query converted some rows to 'minss'. Convert all these instances back to 'mins'
+	
+UPDATE
+	audible_uncleaned
+SET
+	time = REPLACE(time, 'minss', 'mins')
+WHERE time LIKE '%minss%';
+```
+
+<br>
+
 
 ```sql
 
