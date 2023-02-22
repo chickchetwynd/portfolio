@@ -175,19 +175,23 @@ Next, lets format the _time_ column so that it just displays the duration of the
 
 ```sql
 
---parsing the time column to extract minutes
+--parsing and calculation on time column to extract the duration in mins.
 
 SELECT 
+
+   time, 
    CASE 
-      WHEN time LIKE '%hrs%' AND time LIKE '%mins%'
-			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') - 1) AS INTEGER) * (60) + (CAST(SUBSTR(time, INSTR(time, 'and') + 1, INSTR(time, 'mins') -1) AS INTEGER))
+      WHEN time LIKE '%hrs%' AND time LIKE '%min%'
+			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') - 1) AS INTEGER) * (60) + (CAST(SUBSTR(time, INSTR(time, 'and') + 3, INSTR(time, 'min') -1) AS INTEGER))
 			
 	  WHEN time LIKE '%hrs%'
 			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') * 60) AS INTEGER)
 			
-	  WHEN time LIKE '%mins%'
-			THEN CAST(SUBSTR(time, 1, (INSTR(time, 'mins') -1)) AS INTEGER)
+	  WHEN time LIKE '%min%'
+			THEN CAST(SUBSTR(time, 1, (INSTR(time, 'min') -1)) AS INTEGER)
 	  END AS duration_mins
 	  
 FROM audible_uncleaned;
 ```
+
+
