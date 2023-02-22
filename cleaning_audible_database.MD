@@ -168,7 +168,11 @@ SET narrator = REPLACE(narrator, ',', ', ')
 <br>
 
 
-Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want:
+Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want.
+
+<br>
+
+First up, lets make sure that before we parse the column that it is formatted uniformly throughout. What we want: __n hrs and n mins__. However in the table below, we can see an instance of __'hr'__ rather than __'hrs'__. There are also instances of __'min'__ rather than __'mins'__. Lets fix this first:
 
 <br>
 
@@ -193,5 +197,7 @@ SELECT
 	  
 FROM audible_uncleaned;
 ```
+<br>
+
 
 
