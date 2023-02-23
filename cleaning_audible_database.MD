@@ -258,7 +258,60 @@ The query above creates a case statement with three types of cases: case when th
 
 <br>
 
-Lets update the main table with this new column and remove the _time_ column:
+Lets update the main table with this new column, called _duration_mins_, and omit the _time_ column:
+
+<br>
+
+```sql
+
+	
+--Create a new table called audible_cleaned with the new column called duration_mins and omitting the old column called time.
+
+CREATE TABLE audible_cleaned AS
+
+	SELECT
+	name,
+	author,
+	narrator,
+   CASE 
+      WHEN time LIKE '%hrs%' AND time LIKE '%min%'
+			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') - 1) AS INTEGER) * (60) + (CAST(SUBSTR(time, INSTR(time, 'and') + 3, INSTR(time, 'min') -1) AS INTEGER))
+			
+	  WHEN time LIKE '%hrs%'
+			THEN CAST(SUBSTR(time, 1, INSTR(time, 'hrs') -1) AS INTEGER) * 60
+			
+	  WHEN time LIKE '%min%'
+			THEN CAST(SUBSTR(time, 1, (INSTR(time, 'min') -1)) AS INTEGER)
+	  END AS duration_mins,
+	  releasedate,
+	  language,
+	  stars,
+	  price
+	   
+FROM audible_uncleaned; 
+```
+<br>
+
+Checking to make sure everything worked...
+
+<br>
+
+```sql
+SELECT *
+FROM audible_cleaned
+LIMIT 5
+```
+
+<br>
+
+| name                                       | author          | narrator       | duration_mins | releasedate | language | stars                         | price  |
+|:------------------------------------------:|:---------------:|:--------------:|:-------------:|:-----------:|:--------:|:-----------------------------:|:------:|
+| Geronimo Stilton #11 & #12                 | GeronimoStilton | BillLobely     | 140           | 04-08-08    | English  | 5 out of 5 stars34 ratings    | 468.00 |
+| The Burning Maze                           | RickRiordan     | RobbieDaymond  | 788           | 01-05-18    | English  | 4.5 out of 5 stars41 ratings  | 820.00 |
+| The Deep End                               | JeffKinney      | DanRussell     | 123           | 06-11-20    | English  | 4.5 out of 5 stars38 ratings  | 410.00 |
+| Daughter of the Deep                       | RickRiordan     | SoneelaNankani | 676           | 05-10-21    | English  | 4.5 out of 5 stars12 ratings  | 615.00 |
+| The Lightning Thief: Percy Jackson, Book 1 | RickRiordan     | JesseBernstein | 600           | 13-01-10    | English  | 4.5 out of 5 stars181 ratings | 820.00 |
+
 
 
 
