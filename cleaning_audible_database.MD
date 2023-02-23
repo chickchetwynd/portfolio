@@ -1,16 +1,20 @@
 # Cleaning an Audible database.
 
-Raw data is available [here](https://www.kaggle.com/datasets/snehangsude/audible-dataset?select=audible_uncleaned.csv)
-
-The purpose of this project is to clean a dataset ready for analysis using SQL. The data was downloaded as a CSV file and I used DB browser to run queries and edit the table.
-<br>
-
-# Project set up
-
-db browser and mysql
-
+The purpose of this project is to clean a dataset so that there is a final table ready for analysis for a future project. I want to exclusively use SQL to clean and update the table with the intention of show casing skills such as __window functions__, __cleaning techniques__, and __data manipulation/wrangling__. Data cleaning is an essential component of analysis; without clean data the integrity of any conclusions drawn from analysis is compromised. This entire project will follow the steps I have taken to transform a dataset from raw data to a uniformly formatted, analysis-ready, reliable source.
 
 <br>
+
+## Project set up
+
+I have previously been using Google's Big Query platform to store and query data but for this project, I wanted to move to a more commonly used Integrated Developer Environment (IDE) that used a more commonly used SQL dialect. I had planned to switch over to MySQL which required research into how to install MySQL, set up a local server to house the data, and then download and use MySQL Workbench to interact with it. After installation, I came across many issues with Workbench and after doing some research on [Stackoverflow](https://stackoverflow.com/) I fond that many other users had the same issue as me with Mac laptops that use the new M1 chip. I changed gears and was able to succesfully install SQLite and DB Browser instead. SQLite has some limitations but as you will see later inthe project, I was able to overcome these.
+
+The raw data is available [here](https://www.kaggle.com/datasets/snehangsude/audible-dataset?select=audible_uncleaned.csv) from the Kaggle user. I chose this data because it comes from a web scrapping project that resulted in particularly unclean data.
+
+<br>
+
+## The data
+
+
 The table contains data from a web scraping project from Audible India. It contains 87,489 rows and 8 columns. Lets see a table extract:
 
 ```sql
@@ -74,9 +78,11 @@ SELECT
 
 <br>
 
-A problem encountered here is that there are instances where there are multiple rows with the same title, but it isn't a true duplicate- it is the same audiobook but a different version with a separate narrator. Let's try this instead:
+A problem encountered here is that there are instances where there are multiple rows with the same title, but it isn't a true duplicate- it is the same audiobook but a different version with a separate narrator. Let's try something else instead.
 
 <br>
+
+## Creating a Unique Row ID with Concatenation
 
 ```sql
 SELECT
@@ -98,7 +104,7 @@ FROM audible_uncleaned
 
 <br>
 
-This concatenates the name and the narrator of the book and then assigns a row number to rows partitioned on this new concatenation. Any duplicate rows will have a row number greater than 1. In the table above, you can see that the duplicate row has a row number (rn) of 2. All other non-duplicate rows have a rn of 1. There are **486** duplicates based on name and narrator in the main table. Lets use these new row numbers in a CTE to remove duplicate rows from the main table:
+The code above concatenates the name and the narrator of the book and then assigns a row number to rows partitioned on this new concatenation. Any duplicate rows will have a row number greater than 1. In the table above, you can see that the duplicate row has a row number (rn) of 2. All other non-duplicate rows have a rn of 1. There are **486** duplicates based on name and narrator in the main table. Lets use these new row numbers in a CTE to remove duplicate rows from the main table:
 
 
 ```sql
@@ -126,6 +132,9 @@ DELETE FROM audible_uncleaned
 Great, that's all the duplicates taken care of :sunglasses: :star_struck:
 
 <br>
+
+## String Manipulation
+
 
 Now lets address the _author_ and _narrator_ columns. They contain the extra characters 'Writtenby:' and 'Narratedby:' before the actual information that we need. Lets format these columns correctly:
 
@@ -179,8 +188,11 @@ SET narrator = REPLACE(narrator, ',', ', ')
 
 <br>
 
+## Extracting time
 
-Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does __not__ have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string and make calculations to get what we need.
+<br>
+
+Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that SQlite  does __not__ have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string and make calculations to get what we need.
 
 <br>
 
