@@ -5,6 +5,12 @@ Raw data is available [here](https://www.kaggle.com/datasets/snehangsude/audible
 The purpose of this project is to clean a dataset ready for analysis using SQL. The data was downloaded as a CSV file and I used DB browser to run queries and edit the table.
 <br>
 
+# Project set up
+
+db browser and mysql
+
+
+<br>
 The table contains data from a web scraping project from Audible India. It contains 87,489 rows and 8 columns. Lets see a table extract:
 
 ```sql
