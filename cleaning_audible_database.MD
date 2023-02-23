@@ -318,7 +318,13 @@ LIMIT 5
 | Daughter of the Deep                       | RickRiordan     | SoneelaNankani | 676           | 05-10-21    | English  | 4.5 out of 5 stars12 ratings  | 615.00 |
 | The Lightning Thief: Percy Jackson, Book 1 | RickRiordan     | JesseBernstein | 600           | 13-01-10    | English  | 4.5 out of 5 stars181 ratings | 820.00 |
 
+<br>
 
+Success! :partying_face: :nerd_face: :muscle: The new _duration_mins_ column looks accurate. __SIDE NOTE__ this portion of the project was surprisingly tricky and took a few attempts. Creating this column could have been easier using Python instead as I could have used a for loop to iterate every row in order to calculate duration. I had tried to use a __correlated sub query__ using SQL but the query took too long to execute and never finished. An alternative method might have been to use a version of SQL (such as MySQL) that supports date datatypes. FUNctions such as EXTRACT() or DATEPART() would have come in real handy here :sleepy: :raised_eyebrow:
+
+<br>
+
+Now lets move on to the _releasedate_ column. Not too much to change here other than that it is currently formatted as DD-MM-YY. A more common way of formatting dates in databases is YYYY-MM-DD. Lets see if we can change this.
 
 
 
