@@ -348,7 +348,12 @@ Success! :partying_face: :nerd_face: :muscle: The new _duration_mins_ column loo
 
 <br>
 
-Now lets move on to the _releasedate_ column. Not too much to change here other than that it is currently formatted as DD-MM-YY. A more common way of formatting dates in databases is YYYY-MM-DD. Lets see if we can change this.
+![Screenshot 2023-02-23 at 12 50 19 PM](https://user-images.githubusercontent.com/121225842/221027650-b9c02089-f1f0-47af-9a08-5068fbb6c6a8.jpeg)
+
+
+<br>
+
+Now lets move on to the _releasedate_ column. Not too much to change here other than that it is currently formatted as DD-MM-YY. The standard way of formatting dates is the ISO 8601 standard which is YYYY-MM-DD. Lets see if we can change our column to this standard:
 
 
 
