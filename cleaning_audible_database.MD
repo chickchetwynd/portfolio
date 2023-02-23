@@ -262,7 +262,7 @@ FROM audible_uncleaned;
 ```
 <br>
 
-| time               | duration |
+| time               | duration_mins |
 |:------------------:|:--------:|
 | 2 hrs and 3 mins   | 123      |
 | 11 hrs and 16 mins | 676      |
