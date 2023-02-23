@@ -5,7 +5,7 @@ Raw data is available [here](https://www.kaggle.com/datasets/snehangsude/audible
 The purpose of this project is to clean a dataset ready for analysis using SQL. The data was downloaded as a CSV file and I used DB browser to run queries and edit the table.
 <br>
 
-The table contains data from a web scraping project fron Audible India. It contains 87,489 rows and 8 columns. Lets see a table extract:
+The table contains data from a web scraping project from Audible India. It contains 87,489 rows and 8 columns. Lets see a table extract:
 
 ```sql
 SELECT  
@@ -68,7 +68,7 @@ SELECT
 
 <br>
 
-A problem encountered here is that there are instances where there are multiple rows with the same title, but it isn't a true duplicate- it is the same audiobook but a different version with a separate narator. Let's try this instead:
+A problem encountered here is that there are instances where there are multiple rows with the same title, but it isn't a true duplicate- it is the same audiobook but a different version with a separate narrator. Let's try this instead:
 
 <br>
 
@@ -117,7 +117,13 @@ DELETE FROM audible_uncleaned
 ```
 <br>
 
+Great, that's all the duplicates taken care of :sunglasses: :star_struck:
+
+<br>
+
 Now lets address the _author_ and _narrator_ columns. They contain the extra characters 'Writtenby:' and 'Narratedby:' before the actual information that we need. Lets format these columns correctly:
+
+<br>
 
 ![Screenshot 2023-02-22 at 12 24 22 PM](https://user-images.githubusercontent.com/121225842/220752985-f3727c9d-0e62-41d2-bb02-a5bfcf90d666.jpeg)
 
@@ -168,11 +174,11 @@ SET narrator = REPLACE(narrator, ',', ', ')
 <br>
 
 
-Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does not have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string an make calculations to get what we want.
+Next, lets format the _time_ column so that it just displays the duration of the audiobook __in minutes only__. A problem that we have here is that I am using SQlite which does __not__ have any datatype for dates or timestamps, all of the data is stored as a string. This means we can't use a function like EXTRACT() to extract just the number of minutes and we will have to parse the string and make calculations to get what we need.
 
 <br>
 
-First up, lets make sure that before we parse the column that it is formatted uniformly throughout. What we want: __n hrs and n mins__. However in the table below, we can see an instance of __'hr'__ rather than __'hrs'__. There are also instances of __'min'__ rather than __'mins'__. Lets fix this first:
+First up, lets make sure that before we parse the column that it is formatted uniformly throughout. The format we want is: __n hrs and n mins__. However in the table below, we can see an instance of __'hr'__ rather than __'hrs'__. There are also instances of __'min'__ rather than __'mins'__. Lets fix this first:
 
 <br>
 
