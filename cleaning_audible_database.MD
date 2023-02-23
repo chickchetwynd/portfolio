@@ -200,15 +200,8 @@ First up, lets make sure that before we parse the column that it is formatted un
 
 <br>
 
-| name                          | time               |
-|:-----------------------------:|:------------------:|
-| The Red Pyramid               | 13 hrs and 44 mins |
-| Mystery of the Griefer's Mark | 1 hr and 53 mins   |
-| Geronimo Stilton #17          | 2 hrs and 28 mins  |
-| ...                           | ...                |
-| The Skeletons Strike Back     | 2 hrs and 1 min    |
-| Dragonslayer                  | 12 hrs and 44 mins |
-| A Bear Called Paddington      | 2 hrs and 39 mins  |
+<img width="394" alt="Screenshot 2023-02-23 at 11 47 52 AM" src="https://user-images.githubusercontent.com/121225842/221014288-e8881aa1-9b6e-48ff-8fad-d2e4e89b9982.png">
+
 
 <br>
 
