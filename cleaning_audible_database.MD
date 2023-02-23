@@ -188,7 +188,7 @@ SET narrator = REPLACE(narrator, ',', ', ')
 
 <br>
 
-## Extracting time
+## Extracting time- Formatting the Column
 
 <br>
 
@@ -241,6 +241,10 @@ WHERE time LIKE '%minss%';
 
 <br>
 
+## Extracting Time- CASE WHEN
+
+<br>
+
 Now that the _time_ column is formatted uniformly, lets create a new column where we parse the _time_ column and extract just the total number of minutes:
 
 ```sql
@@ -279,6 +283,10 @@ FROM audible_uncleaned;
 <br>
 
 The query above creates a case statement with three types of cases: case when there are hrs and mins, only hrs, and only mins. Each case statement extracts the correct portion of the string from which we can create the _duration column_ which contains the audiobook length in minutes.
+
+<br>
+
+## Extracting Time- Updating the Table
 
 <br>
 
@@ -339,6 +347,11 @@ LIMIT 5
 <br>
 
 Success! :partying_face: :nerd_face: :muscle: The new _duration_mins_ column looks accurate. __SIDE NOTE__ this portion of the project was surprisingly tricky and took a few attempts. Creating this column could have been easier using Python instead as I could have used a for loop to iterate every row in order to calculate duration. I had tried to use a __correlated sub query__ using SQL but the query took too long to execute and never finished. An alternative method might have been to use a version of SQL (such as MySQL) that supports date datatypes. FUNctions such as EXTRACT() or DATEPART() would have come in real handy here :sleepy: :raised_eyebrow:
+
+<br>
+
+
+## Formatting _Releasedate_
 
 <br>
 
