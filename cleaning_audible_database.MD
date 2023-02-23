@@ -478,7 +478,7 @@ SELECT * FROM audible_cleaned
 | The Burning Maze                                                                                                                         | RickRiordan     | RobbieDaymond                             | 788           | 2018-05-01  | English  | 820.00 | 4.5 out of 5 stars | 41            |
 | The Deep End                                                                                                                             | JeffKinney      | DanRussell                                | 123           | 2020-11-06  | English  | 410.00 | 4.5 out of 5 stars | 38            |
 | Daughter of the Deep                                                                                                                     | RickRiordan     | SoneelaNankani                            | 676           | 2021-10-05  | English  | 615.00 | 4.5 out of 5 stars | 12            |
-| 14 Short Stories Bundle for Kids: Adventure, Science Fiction, Aesop’s Fables, Classic Fairy Tales and Christmas Story Books for Children | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | Not rated yet |
+| 14 Short Stories Bundle for Kids... | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | Not rated yet |
 
 <br>
 
