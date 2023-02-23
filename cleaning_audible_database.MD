@@ -413,7 +413,7 @@ Next lets take a look at the _strars_ column. The rating (num of stars out of 5)
 	CASE
 		WHEN stars LIKE '%stars%'
 			THEN SUBSTR(stars, INSTR(stars, 'ars')+3, 2)
-		ELSE 'Not rated yet'
+		ELSE '0'
 		END AS num_ratings
 	
 	
@@ -459,7 +459,7 @@ UPDATE audible_cleaned
 SET num_ratings = (CASE
 		WHEN stars LIKE '%stars%'
 			THEN SUBSTR(stars, INSTR(stars, 'ars')+3, 2)
-		ELSE 'Not rated yet'
+		ELSE '0'
 		END)
 
 		
@@ -478,7 +478,7 @@ SELECT * FROM audible_cleaned
 | The Burning Maze                                                                                                                         | RickRiordan     | RobbieDaymond                             | 788           | 2018-05-01  | English  | 820.00 | 4.5 out of 5 stars | 41            |
 | The Deep End                                                                                                                             | JeffKinney      | DanRussell                                | 123           | 2020-11-06  | English  | 410.00 | 4.5 out of 5 stars | 38            |
 | Daughter of the Deep                                                                                                                     | RickRiordan     | SoneelaNankani                            | 676           | 2021-10-05  | English  | 615.00 | 4.5 out of 5 stars | 12            |
-| 14 Short Stories Bundle for Kids... | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | Not rated yet |
+| 14 Short Stories Bundle for Kids... | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | 0 |
 
 <br>
 
