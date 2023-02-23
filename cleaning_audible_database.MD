@@ -351,9 +351,45 @@ Success! :partying_face: :nerd_face: :muscle: The new _duration_mins_ column loo
 ![Screenshot 2023-02-23 at 12 50 19 PM](https://user-images.githubusercontent.com/121225842/221027650-b9c02089-f1f0-47af-9a08-5068fbb6c6a8.jpeg)
 
 
+Now lets move on to the _releasedate_ column. Not too much to change here other than that it is currently formatted as DD-MM-YY. The standard way of formatting dates is the ISO 8601 standard which is YYYY-MM-DD. Lets see if we can change our column to this standard:
+
 <br>
 
-Now lets move on to the _releasedate_ column. Not too much to change here other than that it is currently formatted as DD-MM-YY. The standard way of formatting dates is the ISO 8601 standard which is YYYY-MM-DD. Lets see if we can change our column to this standard:
+```sql
+--Re-formating the releasedate column
+
+UPDATE
+  audible_cleaned
+SET
+  releasedate = (
+    CASE 
+      WHEN SUBSTR(releasedate, 7, 2) >= '00' AND SUBSTR(releasedate, 7, 2) <= '23' THEN '20' || SUBSTR(releasedate, 7, 2)
+      ELSE '19' || SUBSTR(releasedate, 7, 2)
+    END || '-' || SUBSTR(releasedate, 4, 2) || '-' || SUBSTR(releasedate, 1, 2)
+  );
+  
+```
+
+<br>
+
+This code creates a case statement which adds the extra 2 digits to the 'YY' portion of the date to 'YYYY'. It makes sure to add '20' or '19' when needed. Then it concatenates the relevant sub-string for 'MM' and 'YY'. Lets look at the table now to check that it's correct:
+
+<br>
+
+| name                       | author          | narrator      | duration_mins | releasedate | language | stars                        | price  |
+|----------------------------|-----------------|---------------|---------------|-------------|----------|------------------------------|--------|
+| Geronimo Stilton #11 & #12 | GeronimoStilton | BillLobely    | 140           | 2008-08-04  | English  | 5 out of 5 stars34 ratings   | 468.00 |
+| The Burning Maze           | RickRiordan     | RobbieDaymond | 788           | 2018-05-01  | English  | 4.5 out of 5 stars41 ratings | 820.00 |
+| The Deep End               | JeffKinney      | DanRussell    | 123           | 2020-11-06  | English  | 4.5 out of 5 stars38 ratings | 410.00 |
+
+<br>
+
+Great, everything looks correct with the releasedate!
+
+<br>
+
+## Splitting a String Using a Delimiter
+
 
 
 
