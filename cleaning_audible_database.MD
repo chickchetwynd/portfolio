@@ -470,7 +470,19 @@ DROP COLUMN stars;
 
 SELECT * FROM audible_cleaned
 ```
+<br>
 
+| name                                                                                                                                     | author          | narrator                                  | duration_mins | releasedate | language | price  | avg_rating         | num_ratings   |
+|:----------------------------------------------------------------------------------------------------------------------------------------:|:---------------:|:-----------------------------------------:|:-------------:|:-----------:|:--------:|:------:|:------------------:|:-------------:|
+| Geronimo Stilton #11 & #12                                                                                                               | GeronimoStilton | BillLobely                                | 140           | 2008-08-04  | English  | 468.00 | 5 out of 5 stars   | 34            |
+| The Burning Maze                                                                                                                         | RickRiordan     | RobbieDaymond                             | 788           | 2018-05-01  | English  | 820.00 | 4.5 out of 5 stars | 41            |
+| The Deep End                                                                                                                             | JeffKinney      | DanRussell                                | 123           | 2020-11-06  | English  | 410.00 | 4.5 out of 5 stars | 38            |
+| Daughter of the Deep                                                                                                                     | RickRiordan     | SoneelaNankani                            | 676           | 2021-10-05  | English  | 615.00 | 4.5 out of 5 stars | 12            |
+| 14 Short Stories Bundle for Kids: Adventure, Science Fiction, Aesop’s Fables, Classic Fairy Tales and Christmas Story Books for Children | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | Not rated yet |
+
+<br>
+
+Everything looks good with the two new columns.
 
 
 
