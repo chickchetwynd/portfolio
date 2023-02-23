@@ -388,12 +388,88 @@ Great, everything looks correct with the releasedate!
 
 <br>
 
-## Splitting a String Using a Delimiter
+## Splitting up the _stars_ column
 
 <br>
 
-Next lets take a look at the _strars_ column. The rating (num of stars out of 5) is joined together with the number of ratings in the same column. These two pieces of information should be split into two columns as ther are independant variables:
+Next lets take a look at the _strars_ column. The rating (num of stars out of 5) is joined together with the number of ratings in the same column. These two pieces of information should be split into two columns as they are independant variables:
 
+<br>
+
+```sql
+  --CASE statement that creates two columns by splitting up the stars column
+  
+ SELECT
+
+	stars,
+
+	CASE
+		WHEN stars LIKE '%stars%'
+			THEN SUBSTR(stars, 1, (INSTR(stars, 'stars')+4))
+		WHEN stars LIKE '%Not Rated Yet%'
+			THEN 'Not rated yet'
+		END AS avg_rating,
+		
+	CASE
+		WHEN stars LIKE '%stars%'
+			THEN SUBSTR(stars, INSTR(stars, 'ars')+3, 2)
+		ELSE 'Not rated yet'
+		END AS num_ratings
+	
+	
+FROM audible_cleaned
+```
+
+<br>
+
+
+| stars                        | avg_rating         | num_ratings |
+|:----------------------------:|:------------------:|:-----------:|
+| 5 out of 5 stars34 ratings   | 5 out of 5 stars   | 34          |
+| 4.5 out of 5 stars41 ratings | 4.5 out of 5 stars | 41          |
+| 4.5 out of 5 stars38 ratings | 4.5 out of 5 stars | 38          |
+
+The code succesfully extracts the info we need. Now, lets update the main table so that these two new columns replace the now redundant column, _stars_:
+
+<br>
+
+```sql
+--Creating two new columns for the audible_cleaned table
+
+ALTER TABLE audible_cleaned
+ADD COLUMN avg_rating TEXT;
+ALTER TABLE audible_cleaned
+ADD COLUMN num_ratings INTEGER;
+
+
+--Adding data to the new column avg_rating
+
+UPDATE audible_cleaned
+SET avg_rating = (CASE
+		WHEN stars LIKE '%stars%'
+			THEN SUBSTR(stars, 1, (INSTR(stars, 'stars')+4))
+		WHEN stars LIKE '%Not Rated Yet%'
+			THEN 'Not rated yet'
+		END)
+		
+		
+--Adding data to the new column num_ratings
+
+UPDATE audible_cleaned
+SET num_ratings = (CASE
+		WHEN stars LIKE '%stars%'
+			THEN SUBSTR(stars, INSTR(stars, 'ars')+3, 2)
+		ELSE 'Not rated yet'
+		END)
+
+		
+--Deleting the stars COLUMN
+
+ALTER TABLE audible_cleaned
+DROP COLUMN stars;
+
+SELECT * FROM audible_cleaned
+```
 
 
 
