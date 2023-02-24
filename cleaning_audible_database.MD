@@ -484,7 +484,50 @@ SELECT * FROM audible_cleaned
 
 Everything looks good with the two new columns.
 
+<br>
 
+## Converting the _price_ column to :dollar: $USD :dollar: 
 
+<br>
 
+The last step in cleaning the data is the _price_ column. The audible database is from Audible-India, so prices are in Indian Rupees. Let's convert this column to US dollars. At the time of writing this, 1 IDR is equal to 0.012 USD. We'll use this amount to convert the column:
 
+<br>
+
+```SQL
+--Converting price from IDR to USD. Also removing commas, casting as REAL (FLOAT), and rounding the result.
+
+SELECT
+	price,
+	ROUND(CAST(REPLACE(price, ',', '') AS REAL) * 0.012, 2) AS price_usd
+
+FROM
+	audible_cleaned
+```
+<br>
+
+| price    | price_usd |
+|----------|-----------|
+| 820.0    | 9.84      |
+| 656.0    | 7.87      |
+| 233.0    | 2.8       |
+| 820.0    | 9.84      |
+| 1,256.00 | 15.07     |
+
+<br>
+
+A problem that had to be solved was that I was getting incorrect results for values > 1000 in the price column. I noticed that, when the data was uploaded, it was mistakenly stored as a STRING data type, but even CASTING as REAL (this is the FLOAT equivalent in SQLite) I was getting incrrect results only for values > 1000. I noticed that these values all contained a comma ',' to separate 100s and 1000s. Doing some research, I learnt that SQLite treats commas kinda weird even when the data type is correctly set as REAL :cold_sweat: :poop:. No problem, as part of the query lets remove the comma, CAST it as REAL, AND ROUND the result to two decimals. As you can see in the above table, the results look good. Lets update the column in the main table:
+
+<br>
+
+```sql
+--Updating the table with converted price
+	
+UPDATE audible_cleaned
+SET price = 	ROUND(CAST(REPLACE(price, ',', '') AS REAL) * 0.012, 2)
+
+ALTER TABLE audible_cleaned
+RENAME COLUMN price TO price_usd
+```
+
+<br>
