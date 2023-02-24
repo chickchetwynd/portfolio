@@ -531,3 +531,31 @@ RENAME COLUMN price TO price_usd
 ```
 
 <br>
+
+| name                       | author          | narrator       | duration_mins | releasedate | language | price_usd | avg_rating | num_ratings |
+|----------------------------|-----------------|----------------|---------------|-------------|----------|-----------|------------|-------------|
+| Geronimo Stilton #11 & #12 | GeronimoStilton | BillLobely     | 140           | 2008-08-04  | English  | 5.62      | 5          | 34          |
+| The Burning Maze           | RickRiordan     | RobbieDaymond  | 788           | 2018-05-01  | English  | 9.84      | 4.5        | 41          |
+| The Deep End               | JeffKinney      | DanRussell     | 123           | 2020-11-06  | English  | 4.92      | 4.5        | 38          |
+| Daughter of the Deep       | RickRiordan     | SoneelaNankani | 676           | 2021-10-05  | English  | 7.38      | 4.5        | 12          |
+| ...                        | ...             | ...            | ...           | ...         | ...      | ...       | ...        | ...         |
+
+<br>
+
+And that's the table cleaned! :cake: :confetti_ball: :tada: 
+
+<br>
+
+## Closing thoughts and Future Analysis
+
+<br>
+
+This project was a little long winded and in a real life scenario, not always 100% necessary. When working with a raw data source, it could be more beneficial to clean the data as it is needed rather than cleaning all of it, all at once in order to prevent doing unnecessary work. However, there are instances where such a thorough cleaning process is valid. For example, if I was passing this data onto a third party who wanted to use it for analysis or if this was company data that was regularly used. In these situations, it could be beneficial to have a completely clean data set. It would be important in these instances to communicate this to any future users. Generating a report, like this one, which details all steps taken to clean the data could be a very useful resource for any future users of this data.
+
+<br>
+
+Now that there is some clean data, it's ready for analysis. It could be cool to do some future analysis using Python instead of SQL. Some inspiration ideas:
+
+* Top rated authors
+* Do authors with better ratings tend to have more books.
+* 
