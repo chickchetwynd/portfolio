@@ -196,7 +196,7 @@ Next, lets format the _time_ column so that it just displays the duration of the
 
 <br>
 
-First up, lets make sure that before we parse the column that it is formatted uniformly throughout. The format we want is: __n hrs and n mins__. However in the table below, we can see an instance of __'hr'__ rather than __'hrs'__. There are also instances of __'min'__ rather than __'mins'__. Lets fix this first:
+First up, lets make sure that before we parse the column that so it is formatted uniformly throughout. The format we want is: __n hrs and n mins__. However in the table below, we can see an instance of __'hr'__ rather than __'hrs'__. There are also instances of __'min'__ rather than __'mins'__. Lets fix this first:
 
 <br>
 
