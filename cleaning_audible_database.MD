@@ -405,7 +405,7 @@ Next lets take a look at the _strars_ column. The rating (num of stars out of 5)
 
 	CASE
 		WHEN stars LIKE '%stars%'
-			THEN SUBSTR(stars, 1, (INSTR(stars, 'stars')+4))
+			THEN SUBSTR(stars, 1, (INSTR(stars, 'out')-1))
 		WHEN stars LIKE '%Not Rated Yet%'
 			THEN 'Not rated yet'
 		END AS avg_rating,
@@ -425,9 +425,9 @@ FROM audible_cleaned
 
 | stars                        | avg_rating         | num_ratings |
 |:----------------------------:|:------------------:|:-----------:|
-| 5 out of 5 stars34 ratings   | 5 out of 5 stars   | 34          |
-| 4.5 out of 5 stars41 ratings | 4.5 out of 5 stars | 41          |
-| 4.5 out of 5 stars38 ratings | 4.5 out of 5 stars | 38          |
+| 5 out of 5 stars34 ratings   | 5   | 34          |
+| 4.5 out of 5 stars41 ratings | 4.5 | 41          |
+| 4.5 out of 5 stars38 ratings | 4.5  | 38          |
 
 The code succesfully extracts the info we need. Now, lets update the main table so that these two new columns replace the now redundant column, _stars_:
 
@@ -447,7 +447,7 @@ ADD COLUMN num_ratings INTEGER;
 UPDATE audible_cleaned
 SET avg_rating = (CASE
 		WHEN stars LIKE '%stars%'
-			THEN SUBSTR(stars, 1, (INSTR(stars, 'stars')+4))
+			THEN SUBSTR(stars, 1, (INSTR(stars, 'out')-1))
 		WHEN stars LIKE '%Not Rated Yet%'
 			THEN 'Not rated yet'
 		END)
@@ -474,10 +474,10 @@ SELECT * FROM audible_cleaned
 
 | name                                                                                                                                     | author          | narrator                                  | duration_mins | releasedate | language | price  | avg_rating         | num_ratings   |
 |:----------------------------------------------------------------------------------------------------------------------------------------:|:---------------:|:-----------------------------------------:|:-------------:|:-----------:|:--------:|:------:|:------------------:|:-------------:|
-| Geronimo Stilton #11 & #12                                                                                                               | GeronimoStilton | BillLobely                                | 140           | 2008-08-04  | English  | 468.00 | 5 out of 5 stars   | 34            |
-| The Burning Maze                                                                                                                         | RickRiordan     | RobbieDaymond                             | 788           | 2018-05-01  | English  | 820.00 | 4.5 out of 5 stars | 41            |
-| The Deep End                                                                                                                             | JeffKinney      | DanRussell                                | 123           | 2020-11-06  | English  | 410.00 | 4.5 out of 5 stars | 38            |
-| Daughter of the Deep                                                                                                                     | RickRiordan     | SoneelaNankani                            | 676           | 2021-10-05  | English  | 615.00 | 4.5 out of 5 stars | 12            |
+| Geronimo Stilton #11 & #12                                                                                                               | GeronimoStilton | BillLobely                                | 140           | 2008-08-04  | English  | 468.00 | 5   | 34            |
+| The Burning Maze                                                                                                                         | RickRiordan     | RobbieDaymond                             | 788           | 2018-05-01  | English  | 820.00 | 4.5 | 41            |
+| The Deep End                                                                                                                             | JeffKinney      | DanRussell                                | 123           | 2020-11-06  | English  | 410.00 | 4.5 | 38            |
+| Daughter of the Deep                                                                                                                     | RickRiordan     | SoneelaNankani                            | 676           | 2021-10-05  | English  | 615.00 | 4.5 | 12            |
 | 14 Short Stories Bundle for Kids... | NayomiPhillips  | MonicaRachelle, JimD.Johnston, KatieOtten | 193           | 2019-01-22  | English  | 501.00 | Not rated yet      | 0 |
 
 <br>
