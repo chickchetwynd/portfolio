@@ -556,6 +556,6 @@ This project was a little long winded and in a real life scenario, not always 10
 
 Now that there is some clean data, it's ready for analysis. It could be cool to do some future analysis using Python instead of SQL. Some inspiration ideas:
 
-* Top rated authors
+* Top rated authors.
 * Do authors with better ratings tend to have more books.
-* 
+* Modelling to predict if a book is going to get good ratings.
