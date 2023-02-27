@@ -422,12 +422,9 @@ FROM audible_cleaned
 
 <br>
 
+![Screenshot 2023-02-27 at 10 37 45 AM](https://user-images.githubusercontent.com/121225842/221653832-78838afe-330f-484d-8f49-ef09f90f94cd.jpeg)
 
-| stars                        | avg_rating         | num_ratings |
-|:----------------------------:|:------------------:|:-----------:|
-| 5 out of 5 stars34 ratings   | 5   | 34          |
-| 4.5 out of 5 stars41 ratings | 4.5 | 41          |
-| 4.5 out of 5 stars38 ratings | 4.5  | 38          |
+
 
 The code succesfully extracts the info we need. Now, lets update the main table so that these two new columns replace the now redundant column, _stars_:
 
