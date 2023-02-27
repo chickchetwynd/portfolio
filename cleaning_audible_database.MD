@@ -392,7 +392,7 @@ Great, everything looks correct with the releasedate!
 
 <br>
 
-Next lets take a look at the _strars_ column. The rating (num of stars out of 5) is joined together with the number of ratings in the same column. These two pieces of information should be split into two columns as they are independant variables:
+Next lets take a look at the _stars_ column. The rating (num of stars out of 5) is joined together with the number of ratings in the same column. These two pieces of information should be split into two columns as they are independant variables:
 
 <br>
 
