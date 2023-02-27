@@ -372,7 +372,7 @@ SET
 
 <br>
 
-This code creates a case statement which adds the extra 2 digits to the 'YY' portion of the date to 'YYYY'. It makes sure to add '20' or '19' when needed. Then it concatenates the relevant sub-string for 'MM' and 'YY'. Lets look at the table now to check that it's correct:
+This code creates a case statement which adds the extra 2 digits to the 'YY' portion of the date to 'YYYY'. It makes sure to add '20' or '19' when needed. Then it concatenates the relevant sub-string for 'MM' and 'DD'. Lets look at the table now to check that it's correct:
 
 <br>
 
