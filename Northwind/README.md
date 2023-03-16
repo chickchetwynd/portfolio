@@ -1,5 +1,8 @@
 # Creating a dashboard in Tableau
 
+
+The final dashboard can be seen [here](https://public.tableau.com/app/profile/chick.chetwynd/viz/NorthwindDashboard_16776253645420/MainPage)
+
 I created this dashboard using Microsoft's fictional Northwind Trader's database, available [here](https://en.wikiversity.org/wiki/Database_Examples/Northwind/SQLite). The dashboard was created using Tableau Public and data validation was performed with SQL on DB Browser.
 
 <br>
