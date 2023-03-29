@@ -9,7 +9,7 @@ Football (soccer for americans) isn't one of the most common team sports in the 
 In this project, my goal is to use this dataset to demonstrate some basic SQL skills by addressing the following:
 
 
-* Conduct some basic exploratory analaysis of the data and vizualise the reults.
+* Conduct some basic exploratory analaysis of the data and vizualize the reults.
 * What parts of the world are most succesful at football?
 * Are teams more succesful when they play at home compared to when they play an away game?
 
